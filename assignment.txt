@@ -1,0 +1,183 @@
+// =======================================
+// 1..File Related
+//========================================
+package com.Textfile.main;
+
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class TestData{
+int RecCnt=0;
+//public String InpFile;
+
+public void ReadData(String Inpile,String delemeter) {
+	try{
+		FileInputStream fstream = new FileInputStream(Inpile );
+		DataInputStream in = new DataInputStream(fstream);
+		BufferedReader br2 = new BufferedReader(new InputStreamReader(in));
+		String strLine;
+		int word1=0;
+		while ((strLine = br2.readLine()) != null)
+		{   word1=word1+1;
+			String[] Rcols=strLine.split(delemeter);  
+			System.out.println("word "+word1+" "+Rcols[0] +" :");// First split to separate the word and Meaning *****
+			String[] Rcols1=Rcols[1].split(","); // Second split to Display the  # of Meaning *****
+			for(int i=0;i<Rcols1.length;i++)
+				System.out.println("Meaning"+(i+1)+" : "+Rcols1[i]);
+			System.out.println("\n");
+		}
+		br2.close();
+	}
+	catch (Exception e) { 
+		System.out.println("Input datafile is missing ");
+	}
+	//=============================================
+}
+//======================
+public String CheckFile(String Inpile) {
+	String Chkflg;
+	try{
+		FileInputStream fstream = new FileInputStream(Inpile );
+		fstream.close();
+		return Chkflg="Yes";
+	}
+	catch (Exception e) { 
+		Chkflg="\n Cretical Error:\nTestcase file "+ Inpile+" is missing Please Check and Run\n\n Abbort Process ..........";
+		return Chkflg;
+	}
+  }
+
+public static void main(String[] args){
+
+    Scanner tf = new Scanner(System.in);
+    
+   String Inpfile="C:\\A_Java\\Test_data\\Config.txt";
+ 
+    System.out.println("Input file is "+Inpfile);
+	TestData td=new TestData();
+	String Delemeter=":";
+
+	String ChkTCFile=td.CheckFile(Inpfile);// ======  Check Input TestCase File  ========
+	if (ChkTCFile.equals("Yes")) {
+		System.out.println("\n AP   Please Wait ..... \n");
+		td.ReadData(Inpfile, Delemeter);
+	}
+	else 
+		System.out.println(ChkTCFile);
+
+}
+}
+//============================= ===End=================================
+3.  Sorting Problem
+// ===============================================
+class sortingprogram {
+	  public static void main(String [] args) {
+			int [] a = new int [5];
+		int temp;
+		
+		int n=5;
+		  
+		  for (int jj=0;jj<5;jj++)
+			 a[jj]=getRandom(10,100);
+			
+			
+			 
+		  
+			 for (int i = 0; i < 5; i++) 
+		        {
+		            for (int j = i + 1; j < n; j++) 
+		            {
+		                if (a[i] > a[j]) 
+		                {
+		                    temp = a[i];
+		                    a[i] = a[j];
+		                    a[j] = temp;
+		                }
+		            }
+		        }
+		        System.out.print("Ascending Order:");
+		        for (int i = 0; i < n - 1; i++) 
+		        {
+		            System.out.print(a[i] + ",");
+		        }
+		        System.out.print(a[n - 1]);
+		    }
+		
+  
+	  
+	  
+ 
+	public static int getRandom(int from, int to) {
+	    if (from < to)
+	        return from + new Random().nextInt(Math.abs(to - from));
+	    return from - new Random().nextInt(Math.abs(to - from));
+	}
+	  
+	
+	  }
+	  
+	  
+// ================================================
+// 2.  Selenium
+// ================================================
+package WeightWatcherTest;
+
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import junit.framework.Assert;
+
+public class WWDemo {
+	
+	public static WebDriver driver;
+
+	public static void main(String[] args) throws InterruptedException {
+		
+        System.setProperty("webdriver.chrome.driver","C:\\Driver\\chromedriver.exe");
+	    WebDriver driver = new ChromeDriver();
+		
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("https://www.weightwatchers.com/us/");
+		
+		driver.findElement(By.xpath("//*[@id=\"mf-lsw-modal\"]/div/div/div/div[1]/button")).click();
+	    
+		String actualTitle = driver.getTitle();
+	    String expectedTitle = "Weight Loss Program, Recipes & Help | Weight Watchers";
+		System.out.println("Title1: " + actualTitle);
+		System.out.println("Title2: " + expectedTitle);
+        
+		Assert.assertEquals(actualTitle,expectedTitle);
+    	System.out.println("Valid Title");
+		
+    	Thread.sleep(5000);
+		driver.findElement(By.linkText("Find a Meeting")).click();
+		System.out.println(driver.getTitle());
+
+//--------------don't work-----------------------------------
+
+	/*	String zip = "08016";
+		WebElement zipEntry = driver.findElement(By.name("meetingSearch"));
+		zipEntry.click();
+		zipEntry.clear();
+		zipEntry.sendKeys(zip);*/
+		
+//-----------------------OR----------------------------------------
+		
+	//	driver.findElement(By.name("meetingSearch")).click();
+	//	driver.findElement(By.name("meetingSearch")).clear();
+	//  driver.findElement(By.name("meetingSearch")).sendKeys("10011");
+	//	driver.findElement(By.xpath("//*[@id=\"content\"]/div/div/ui-view/ui-view/div/div/div/div/div[2]/div[1]/div/form/div[1]/span/button")).click();
+	//	System.out.println(driver.getTitle());
+		
+	}
+
+}
+
+
+/
